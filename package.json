@@ -16,6 +16,9 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "client": "yarn start",
+    "server": "cd server && yarn devstart",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,5 +38,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "proxy": "http://localhost:5000/"
 }
