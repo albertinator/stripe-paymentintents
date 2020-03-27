@@ -18,6 +18,8 @@ $ yarn install
 ```
 
 ## Run and monitor
+Open 3 different shell terminals and run the following in each, respectively:
+
 ```bash
 $ yarn dev  # this will run both the client (on port 3000) and server (on port 5000)
 ```
