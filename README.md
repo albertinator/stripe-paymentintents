@@ -10,9 +10,10 @@ $ brew install stripe/stripe-cli/stripe  # if "stripe" command not found
 ```
 
 ## Set up
+First get your Stripe **publishable key** and **secret key** from [https://dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys). Then run:
 ```bash
-$ echo REACT_APP_STRIPE_PK=<your stripe publishable key at https://dashboard.stripe.com/apikeys> > .env
-$ echo STRIPE_SK=<your stripe secret key at https://dashboard.stripe.com/apikeys> > server/.env
+$ echo REACT_APP_STRIPE_PK=<your stripe publishable key> > .env
+$ echo STRIPE_SK=<your stripe secret key> > server/.env
 $ yarn install
 ```
 
