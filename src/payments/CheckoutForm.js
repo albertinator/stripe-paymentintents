@@ -19,11 +19,15 @@ function CheckoutForm() {
 
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  const disabled = !stripe || submitting
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault()
+
+    setSubmitting(true)
 
     if (!stripe || !elements) { return }
 
@@ -43,12 +47,14 @@ function CheckoutForm() {
         setSuccess(true)
       }
     }
+
+    setSubmitting(false)
   }
 
   return (
     success ?
     <div className="text-center">
-      <div class="alert alert-success text-left" role="alert">
+      <div className="alert alert-success text-left" role="alert">
         You've successfully contributed $10 to Allan's campaign!
       </div>
     </div> :
@@ -61,6 +67,7 @@ function CheckoutForm() {
         autoFocus={true}
         value={email}
         onChange={e => setEmail(e.target.value)}
+        disabled={disabled}
       />
 
       <div className="mb-2"></div>
@@ -72,6 +79,7 @@ function CheckoutForm() {
         placeholder="Your name"
         value={name}
         onChange={e => setName(e.target.value)}
+        disabled={disabled}
       />
       <div className="mb-4"></div>
 
@@ -79,7 +87,7 @@ function CheckoutForm() {
       <div className="mb-4"></div>
       {
         errorMsg ?
-        <div class="alert alert-danger text-left" role="alert">
+        <div className="alert alert-danger text-left" role="alert">
           {errorMsg}
         </div> : ''
       }
@@ -87,7 +95,7 @@ function CheckoutForm() {
 
       <button
         className="btn btn-primary"
-        disabled={!stripe}
+        disabled={disabled}
       >Contribute $10</button>
 
     </form>
