@@ -2,7 +2,7 @@
 
 This is an application that uses Stripe PaymentIntents to let a user make a one-time purchase.
 
-## System dependencies
+## Install system dependencies
 ```bash
 $ brew install node  # if "node -v" command not found
 $ brew install yarn  # if "yarn -v" command not found
@@ -38,7 +38,7 @@ $ stripe listen --forward-to http://localhost:5000/webhook  # forward webhooks f
 $ tail -f server/successful_payments.log  # watch successful payments log
 ```
 
-## Make payment
+## Use the app
 
 Navigate to [http://localhost:3000](http://localhost:3000)
 
