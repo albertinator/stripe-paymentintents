@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import CardSection from './CardSection';
 
 function CheckoutForm() {
+  const [cs, setCs] = useState('')
+  const fetchCs = () => {
+    (async () => {
+      const response = await fetch('/declare-payment-intent', { method: 'POST' })
+      const body = await response.json()
+      if (response.status !== 200) throw Error(body.message)
+      setCs(body.cs)
+    })()
+  }
+  useEffect(fetchCs, []);
+
   const stripe = useStripe()
   const elements = useElements()
 
@@ -16,8 +27,7 @@ function CheckoutForm() {
 
     if (!stripe || !elements) { return }
 
-    // TODO: use actual client secret
-    const result = await stripe.confirmCardPayment('{CLIENT_SECRET}', {
+    const result = await stripe.confirmCardPayment(cs, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: { email, name },
