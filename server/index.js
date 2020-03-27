@@ -27,4 +27,23 @@ app.post('/declare-payment-intent', async (req, res) => {
   res.send({ cs: paymentIntent.client_secret })
 })
 
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) => {
+  const evt = req.body
+
+  switch (evt.type) {
+    case 'payment_intent.succeeded':
+      const paymentIntent = evt.data.object
+      console.log('PaymentIntent was successful!')
+      break;
+    case 'payment_method.attached':
+      const paymentMethod = evt.data.object
+      console.log('PaymentMethod was attached to a Customer!')
+      break
+    default:
+      return res.status(400).end();
+  }
+
+  res.json({ received: true })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`))
