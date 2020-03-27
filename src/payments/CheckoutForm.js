@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import CardSection from './CardSection';
 
 function CheckoutForm() {
   const stripe = useStripe()
   const elements = useElements()
+
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -15,10 +18,7 @@ function CheckoutForm() {
     const result = await stripe.confirmCardPayment('{CLIENT_SECRET}', {
       payment_method: {
         card: elements.getElement(CardElement),
-        billing_details: {
-          name: 'Jenny Rosen',  // TODO: use actual name from input
-          // TODO: add email from input
-        },
+        billing_details: { email, name },
       },
     })
 
@@ -41,6 +41,8 @@ function CheckoutForm() {
         name="email"
         placeholder="Your e-mail address"
         autoFocus={true}
+        value={email}
+        onChange={e => setEmail(e.target.value)}
       />
       <div className="mb-2"></div>
       <input
@@ -48,6 +50,8 @@ function CheckoutForm() {
         type="text"
         name="name"
         placeholder="Your name"
+        value={name}
+        onChange={e => setName(e.target.value)}
       />
       <div className="mb-4"></div>
       <CardSection />
