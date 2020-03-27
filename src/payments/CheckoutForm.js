@@ -8,6 +8,8 @@ function CheckoutForm() {
 
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -23,17 +25,23 @@ function CheckoutForm() {
     })
 
     if (result.error) {
-      // TODO: show error to your customer (e.g., insufficient funds)
-      console.log(result.error.message);
+      setErrorMsg(result.error.message)
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        // TODO: show a success message to your customer
+        setErrorMsg('')
+        setSuccess(true)
       }
     }
   }
 
   return (
+    success ?
+    <div className="text-center">
+      <div class="alert alert-success text-left" role="alert">
+        You've successfully contributed $10 to Allan's campaign!
+      </div>
+    </div> :
     <form className="text-center" onSubmit={handleSubmit}>
       <input
         className="form-control"
@@ -44,7 +52,9 @@ function CheckoutForm() {
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
+
       <div className="mb-2"></div>
+
       <input
         className="form-control"
         type="text"
@@ -54,12 +64,22 @@ function CheckoutForm() {
         onChange={e => setName(e.target.value)}
       />
       <div className="mb-4"></div>
+
       <CardSection />
       <div className="mb-4"></div>
+      {
+        errorMsg ?
+        <div class="alert alert-danger text-left" role="alert">
+          {errorMsg}
+        </div> : ''
+      }
+      <div className="mb-4"></div>
+
       <button
         className="btn btn-primary"
         disabled={!stripe}
       >Contribute $10</button>
+
     </form>
   )
 }
