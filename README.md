@@ -20,6 +20,7 @@ First get your Stripe **publishable key** and **secret key** from [https://dashb
 $ echo REACT_APP_STRIPE_PK=<your stripe publishable key> > .env
 $ echo STRIPE_SK=<your stripe secret key> > server/.env
 $ yarn install
+$ cd server && yarn install && cd ..
 ```
 
 ## Run and monitor
@@ -35,6 +36,7 @@ $ stripe listen --forward-to http://localhost:5000/webhook  # forward webhooks f
 ```
 
 ```bash
+$ touch server/successful_payments.log
 $ tail -f server/successful_payments.log  # watch successful payments log
 ```
 
