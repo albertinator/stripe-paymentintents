@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -34,7 +35,11 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) =>
     case 'payment_intent.succeeded':
       const paymentIntent = evt.data.object
       console.log('PaymentIntent was successful!')
-      break;
+      fs.appendFile('successful_payments.log', paymentIntent.id + "\n", err => {
+        if (err) { throw err }
+        console.log(`Logged successful PaymentIntent ${paymentIntent.id}!`)
+      })
+      break
     case 'payment_method.attached':
       const paymentMethod = evt.data.object
       console.log('PaymentMethod was attached to a Customer!')
