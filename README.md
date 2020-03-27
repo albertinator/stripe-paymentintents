@@ -12,6 +12,7 @@ $ brew install stripe/stripe-cli/stripe  # if "stripe" command not found
 ## Clone the repo
 ```bash
 $ git clone git@github.com:albertinator/stripe-paymentintents.git
+$ cd stripe-paymentintents
 ```
 
 ## Set up
