@@ -15,10 +15,10 @@ $ git clone git@github.com:albertinator/stripe-paymentintents.git
 ```
 
 ## Set up
-First get your Stripe **publishable key** and **secret key** from [https://dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys). Then run:
+First get your Stripe **publishable key** and **secret key** from [https://dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys). When testing, be sure to set the *test* toggle to get the test keys rather than production keys. Then run:
 ```bash
-$ echo REACT_APP_STRIPE_PK=<your stripe publishable key> > .env
-$ echo STRIPE_SK=<your stripe secret key> > server/.env
+$ echo REACT_APP_STRIPE_PK=<your Stripe publishable key> > .env
+$ echo STRIPE_SK=<your Stripe secret key> > server/.env
 $ yarn install
 $ cd server && yarn install && cd ..
 ```
