@@ -9,6 +9,11 @@ $ brew install yarn  # if "yarn -v" command not found
 $ brew install stripe/stripe-cli/stripe  # if "stripe" command not found
 ```
 
+## Clone the repo
+```bash
+$ git clone git@github.com:albertinator/stripe-paymentintents.git
+```
+
 ## Set up
 First get your Stripe **publishable key** and **secret key** from [https://dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys). Then run:
 ```bash
