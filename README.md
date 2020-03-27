@@ -29,3 +29,28 @@ $ stripe listen --forward-to http://localhost:5000/webhook  # forward webhooks f
 ```bash
 $ tail -f server/successful_payments.log  # watch successful payments log
 ```
+
+## Make payment
+
+Navigate to [http://localhost:3000](http://localhost:3000)
+
+In this app, we present an opportunity to help someone displaced from his job due to COVID-19 pay his electric bill this month.
+
+![The contribution page](img/page.png)
+
+Enter your e-mail address and name, and finally your credit card details:
+* `4242 4242 4242 4242` - start with the plain vanilla success card
+
+Look at your window monitoring Stripe webhooks from `stripe listen`: it should have captured a webhook for this successful payment.
+
+Also look at your window monitoring the successful payments log from `tail -f server/successful_payments.log`: it should have added a new line with the PaymentIntent ID.
+
+Refresh the page to contribute more. Try the following alternative cases:
+
+* `4000 0025 0000 3155` - require authentication
+
+After the extra step of authenticating, this should result in a successful payment and add a new line to `server/successful_payments.log`.
+
+* `4000 0000 0000 9995` - declined for `insufficient_funds`
+
+This should NOT result in a successful payment and NO new line should be added to `server/successful_payments.log`.
